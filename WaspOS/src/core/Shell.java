@@ -11,15 +11,17 @@ import java.util.regex.Pattern;
 import commandInterpreter.Interpreter;
 import fileSystem.FileSystem;
 import memoryManagement.*;
+import processesCommunication.Communication;
 import processorManager.ProcessorManager;
 import processesManagement.ProcessesManagement;
 
 public class Shell {
 	private RAM RAM;
 	private FileSystem fileSystem;
-	private ProcessesManagement processesManagment;
+	private ProcessesManagement processesManagement;
 	private ProcessorManager processorManager;
 	private Interpreter interpreter;
+	private Communication communication;
 	private BufferedReader in;
 	
 	private String string;
@@ -40,14 +42,16 @@ public class Shell {
 		allowedCommands.put("pnex", "print nexttry field");
 		allowedCommands.put("step", "do one step on processor");
 		allowedCommands.put("disc", "display disc");
+		allowedCommands.put("clog", "display communication logs");
 		
 		new Processor();
 		
 		RAM = new RAM();
 		fileSystem = new FileSystem();
-		processesManagment = new ProcessesManagement(RAM);
-		interpreter = new Interpreter(RAM, fileSystem, processesManagment);
-		processorManager = new ProcessorManager(processesManagment, interpreter);
+		processesManagement = new ProcessesManagement(RAM);
+		communication = new Communication();
+		interpreter = new Interpreter(RAM, fileSystem, processesManagement);
+		processorManager = new ProcessorManager(processesManagement, interpreter);
 		
 		in = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -74,11 +78,13 @@ public class Shell {
 			case "pnex": pnex(); break;
 			case "step": step(); break;
 			case "disc": disc(); break;
+			case "clog": System.out.println("communication logs: "); Communication.printLogs(); break;
 			}		
 		} while(!string.equals("exit"));
 		
 		in.close();
-		System.out.println("Panda3!");
+		//TODO usuwanie wszystkiego.
+		processesManagement.CheckStates();
 	}
 	
 	private void help() {
@@ -102,13 +108,15 @@ public class Shell {
 		System.out.println("Enter path of program.");
 		switch(in.readLine()) {
 		case "program1.txt":
-			processesManagment.NewProcess_forUser("program1.txt", "program1");
+			processesManagement.NewProcess_forUser("program1.txt", "program1");
 			break;
 		case "program2.txt":
-			processesManagment.NewProcess_forUser("program2.txt", "program2");
+			processesManagement.NewProcess_forUser("program2.txt", "program2");
 			break;
 		case "program3.txt":
-			processesManagment.NewProcess_forUser("program3.txt", "program3");
+			processesManagement.NewProcess_forUser("program3.txt", "program3");
+		case "komunikacja.txt":
+			processesManagement.NewProcess_forUser("komunikacja.txt", "komunikacja");
 			break;
 		default: System.out.println("This file does not exist."); return;
 		}
@@ -123,18 +131,18 @@ public class Shell {
 	}
 	
 	private void plis() throws IOException {
-		System.out.println("Type ID or name of process to print. \"all\" to print all existing processes");
+		System.out.println("Type ID of process to print. \"all\" to print all existing processes");
 		String s = in.readLine().trim();
 		
 		if(s.contains("all")) {
-			processesManagment.printProcessListInformations();
+			processesManagement.printProcessListInformations();
 			return;
 		}
 		
 		if(!Pattern.compile("[0-9]+").matcher(s).matches()) {
 			return;
 		}
-		processesManagment.printProcessInformations(Integer.parseInt(s));
+		processesManagement.printProcessInformations(Integer.parseInt(s));
 	}
 	
 	private void prun() {
@@ -146,7 +154,7 @@ public class Shell {
 	}
 	
 	private void step() throws IOException {
-		if(!processesManagment.processesList.isEmpty()){
+		if(!processesManagement.processesList.isEmpty()){
 		processorManager.Scheduler();}
 		else{
 			System.out.println("No process exist.");

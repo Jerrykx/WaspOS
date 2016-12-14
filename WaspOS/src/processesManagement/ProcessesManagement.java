@@ -3,6 +3,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import memoryManagement.RAM;
+import processesCommunication.Communication;
 
 public class ProcessesManagement extends Process {
 
@@ -91,9 +92,9 @@ public class ProcessesManagement extends Process {
 		for (int i = 0; i < finishedProcessList.size(); i++) {
 			int index = FindProcessWithID(finishedProcessList.get(i));
 			RAM.deleteProcessData(processesList.get(index).GetName());
+			Communication.deleteProcessMsgBox(processesList.get(index).GetName());
 			processesList.remove(index);
 		}
-		
 		finishedProcessList.clear();
 	}
 	
@@ -105,6 +106,7 @@ public class ProcessesManagement extends Process {
 	public void DeleteProcessWithName_XD(String name) {
 		int index = FindProcessWithName(name);
 		RAM.deleteProcessData(name);
+		Communication.deleteProcessMsgBox(name);
 		processesList.remove(index);
 	}
 	
@@ -235,7 +237,7 @@ public class ProcessesManagement extends Process {
 	public int GetHowLongWaitingWithID(int ID) {
 			
 		int index = FindProcessWithID(ID);
-		return processesList.get(index).howLongWaiting;
+		return processesList.get(index).pcb.howLongWaiting;
 	}
 		
 	public void SetHowLongWaitingWithID(int ID, int howLong) {

@@ -14,8 +14,8 @@ public class PCB {
 	protected int howLongWaiting;
 	
 	
-	
-	public  int commandCounter;
+	public String receivedMsg;
+	public int commandCounter;
 	public HashMap<String, Integer> labels = new HashMap<String, Integer>();
 	public int A;
 	public int B;

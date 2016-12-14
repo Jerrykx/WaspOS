@@ -1,6 +1,6 @@
 package processesManagement;
 
-public class Process extends PCB{
+public class Process {
 
 	//===ZMIENNE=========================================================================================
 	
@@ -47,7 +47,6 @@ public class Process extends PCB{
 			
 		pcb.commandCounter = 0;
 
-		
 		pcb.whenCameToList = number;
 		
 		pcb.ProcessState = stateOverseer.ready;
@@ -81,6 +80,8 @@ public class Process extends PCB{
 		
 		pcb.commandCounter = 0;
 		
+		pcb.receivedMsg = "";
+		
 		pcb.whenCameToList = number;
 		
 		pcb.ProcessState = stateOverseer.ready;
@@ -100,6 +101,7 @@ public class Process extends PCB{
 		System.out.println("current priority - " + pcb.CurrentProcessPriority);
 		System.out.println("waiting time - " + pcb.howLongWaiting);
 		System.out.println("lock state - " + pcb.blocked);
+		System.out.println("received msg - " + pcb.receivedMsg);
 		//procesor
 		System.out.println("Register A - " + pcb.A);
 		System.out.println("Register B - " + pcb.B);

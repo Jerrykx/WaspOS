@@ -1,0 +1,7 @@
+XC pierwszy,pierwszy.txt
+XS pierwszy,pierwszy_komunikat
+XS pierwszy,drugi
+XS pierwszy,trzeci
+XS pierwszy,czwarty
+XY pierwszy
+HLT

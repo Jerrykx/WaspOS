@@ -9,6 +9,7 @@ import processesManagement.ProcessesManagement;
 import processorManager.ProcessorManager;
 import processesManagement.Process;
 import memoryManagement.RAM;
+import processesCommunication.Communication;
 
 public class Interpreter {
 	// ProcesMangment.RUNNING.SetPCB(pcbcos);
@@ -122,8 +123,6 @@ public class Interpreter {
 	}
 
 	public int RUN(Process RUNNING) {
-		//if(ProcessorManager.RUNNING.GetState() == 4)
-			//return -1; //TODO KURWAAAAA
 		ProcessorManager.RUNNING.printInformations();
 		// Put to Box a PCB from current Process
 		PCBbox = RUNNING.GetPCB();
@@ -300,10 +299,11 @@ public class Interpreter {
 			break;
 
 		case "XR": // czytanie komunikatu;
-			// readMsg();
+			String s = Communication.read(ProcessorManager.RUNNING.GetName());
+			ProcessorManager.RUNNING.pcb.receivedMsg = s;
 			break;
 		case "XS": // -- Wysłanie komunikatu;
-			// sendMsg(paramI, paramII);
+			Communication.write(param1, param2);
 			break;
 		case "XN": // -- znalezienie PCB (param1);
 			//setValue("A", processesManagment.FindProcessWithName(param1));
