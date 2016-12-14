@@ -1,3 +1,31 @@
+3 3
+procesSilnia;WF 
+3 4
+silniaPlik,ID=;W
+3 5
+R silniaPlik,A;W
+3 6
+F silniaPlik,_;X
+3 7
+Y procesSilnia;M
+3 8
+N C,5;MN A,1;WR 
+3 9
+silniaPlik,C;SIL
+3 10
+NIA:;MV B,A;MU A
+3 11
+,C;JM SILNIA;WF 
+3 12
+silniaPlik,!=;WR
+3 13
+ silniaPlik,B;XZ
+3 14
+ procesSilnia;XD
+3 15
+ procesSilnia;HL
+3 16
+T;              
 0 0
 MF silniaPlik;XC
 0 1
@@ -14,21 +42,125 @@ R silniaPlik,A;W
 F silniaPlik,_;X
 0 7
 Y procesSilnia;M
+6 0
+HLT;            
+5 0
+MF arytmetykaPli
+5 1
+k;MN A,3;MN B,6;
+3 0
+MF silniaPlik;XC
+3 1
+ procesSilnia,si
+3 2
+lniaPlik.txt;XN 
 0 8
 N C,5;MN A,1;WR 
 0 9
 silniaPlik,C;SIL
-0 10
+0 0
 NIA:;MV B,A;MU A
-0 11
+0 1
 ,C;JM SILNIA;WF 
-0 12
+5 2
+AD A,B;WF arytme
+5 3
+tykaPlik,Wynik3+
+5 4
+6=;WR arytmetyka
+5 5
+Plik,A;MU B,A;WF
+5 6
+ arytmetykaPlik,
+5 7
+Wynik6*9=;WR ary
+5 8
+tmetykaPlik,B;SB
+5 0
+ B,A;WF arytmety
+5 1
+kaPlik,Wynik54-9
+5 11
+=;WR arytmetykaP
+5 12
+lik,B;RF arytmet
+5 13
+ykaPlik;HLT;    
+0 8
 silniaPlik,!=;WR
-0 13
+0 9
  silniaPlik,B;XZ
-0 14
+0 0
  procesSilnia;XD
-0 15
+0 1
  procesSilnia;HL
-0 16
+0 2
 T;              
+2 0
+MF procesTestowy
+2 1
+;XC procesTestow
+2 2
+y,plikTestowy.tx
+2 3
+t;XC procesHLT, 
+2 4
+plikDoUsuniecia.
+2 5
+txt;XY procesHLT
+2 6
+;XS procesTestow
+8 0
+HLT;            
+2 7
+y,Komunikat1;MN 
+2 8
+B,5;XS procesTes
+2 9
+towy,Komunikat2;
+2 10
+MV A,B;RFTODO A;
+2 11
+XY procesTestowy
+2 12
+;XZ procesTestow
+7 0
+XR;XR;DF plikDoU
+7 1
+suniecia;HLT;   
+2 0
+y;XD procesTesto
+2 1
+wy;HLT;         
+4 0
+MF silniaPlik;XC
+1 0
+MF arytmetykaPli
+1 1
+k;MN A,3;MN B,6;
+1 2
+AD A,B;WF arytme
+1 3
+tykaPlik,Wynik3+
+1 4
+6=;WR arytmetyka
+4 1
+ procesSilnia,si
+4 2
+lniaPlik.txt;XN 
+4 3
+procesSilnia;WF 
+4 4
+silniaPlik,ID=;W
+4 5
+R silniaPlik,A;W
+4 6
+F silniaPlik,_;X
+4 7
+Y procesSilnia;M
+9 0
+HLT;            
+1 5
+Plik,A;MU B,A;WF
+4 8
+N C,5;MN A,1;WR 

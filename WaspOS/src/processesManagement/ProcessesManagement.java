@@ -42,23 +42,25 @@ public class ProcessesManagement extends Process {
 	
 	//---
 
-	public void NewProcess_XC(String Name){
-		Process process = new Process();
-		int id = idoverseer.PickID();
+	public int NewProcess_XC(String ProgramPath_Original, String Name){
 		int i = FindProcessWithName(Name);
-	
-		if(i != -1) {
-			
-			Name = Name + id;
-		}
-		
-		process.CreateProcess(id,Name, processNumber);
-		processesList.add(process);	
-		processNumber++;
-		
-		RAM.loadDataProcess(Name, Name);
-		CheckStates();
-		
+		  
+		  if(i != -1) {
+		   
+		   System.out.println("You can't create two programs with the same name while using command XC");
+		   return -1;
+		  }
+		  
+		  Process process = new Process();
+		  int id = idoverseer.PickID();
+		  String s = Integer.toString(id);
+		  process.CreateProcess(id,Name, processNumber);
+		  processesList.add(process); 
+		  processNumber++;
+		  
+		  RAM.loadDataProcess(s, ProgramPath_Original);
+		  //CheckStates();
+		 return 0;
 	}
 	
 	public void NewProcess_forUser(String ProgramPath_Original, String Name) {
@@ -75,7 +77,7 @@ public class ProcessesManagement extends Process {
 		processNumber++;
 		
 		RAM.loadDataProcess(s, ProgramPath_Original);
-		CheckStates();
+		//CheckStates();
 	}
 	
 	public  Process NewProcess_EmptyProcess(String Name) {

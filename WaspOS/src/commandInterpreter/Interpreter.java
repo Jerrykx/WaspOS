@@ -109,7 +109,7 @@ public class Interpreter {
 		rozkazy.add("JM"); // String label
 		rozkazy.add("MF"); // String Name
 		rozkazy.add("DF"); // String name
-		rozkazy.add("PO");
+		rozkazy.add("RF");
 
 		// ROZKAZY BEZARGUMENTOWE
 
@@ -233,7 +233,8 @@ public class Interpreter {
 
 		while (true) {
 			// Load char from RAM 
-			znak = RAM.getCommand(commandCounter, procesName);
+			int x = this.processesManagment.GetIDwithName(procesName);
+			znak = RAM.getCommand(commandCounter, Integer.toString(x));
 			program += znak;
 			commandCounter++;
 			
@@ -327,7 +328,10 @@ public class Interpreter {
 					e.printStackTrace();
 				}
 			}
-			processesManagment.NewProcess_forUser(param2, param1);
+			if(processesManagment.NewProcess_XC(param2, param1)==-1){
+				ProcessorManager.RUNNING.SetState(4);
+				return;
+			}
 			processesManagment.getProcess(param1).SetState(3);
 			break; }
 		case "XY": // -- Uruchomienie procesu
@@ -360,6 +364,7 @@ public class Interpreter {
 			break;
 		case "RF": // -- Print Output
 			//TODO
+			System.out.println(fileSystem.getFileContent(param1));
 			break;
 		}
 	}
