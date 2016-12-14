@@ -44,6 +44,7 @@ public class Shell {
 		allowedCommands.put("disc", "display disc");
 		allowedCommands.put("clog", "display communication logs");
 		allowedCommands.put("cpro", "create process");
+		allowedCommands.put("dfif", "display RAM fifo");
 		allowedCommands.put("allp", "run through whole program");
 		
 		new Processor();
@@ -69,23 +70,26 @@ public class Shell {
 				System.out.println("Undefined command!");
 			}
 			
-			if(string.contains("load"))
+			if(string.contains("load") && string.length() != 4) {
 				load(string);
-			else switch(string) {
-			case "help": help(); break;
-			case "logo": drawLogo(); break;
-			case "load": load(string); break;
-			case "pram": dram(); break;
-			case "preg": dreg(); break;
-			case "plis": plis(); break;
-			case "prun": prun(); break;
-			case "pnex": pnex(); break;
-			case "step": step(); break;
-			case "disc": disc(); break;
-			case "cpro": cpro(); break;
-			case "allp": allp(); break;
-			case "clog": System.out.println("communication logs: "); Communication.printLogs(); break;
-			}		
+			} else {
+				switch(string) {
+				case "help": help(); break;
+				case "logo": drawLogo(); break;
+				case "load": load(string); break;
+				case "pram": pram(); break;
+				case "preg": dreg(); break;
+				case "plis": plis(); break;
+				case "prun": prun(); break;
+				case "pnex": pnex(); break;
+				case "step": step(); break;
+				case "disc": disc(); break;
+				case "cpro": cpro(); break;
+				case "allp": allp(); break;
+				case "dfif": dfif(); break;
+				case "clog": System.out.println("communication logs: "); Communication.printLogs(); break;
+				}	
+			}
 		} while(!string.equals("exit"));
 		
 		in.close();
@@ -112,7 +116,7 @@ public class Shell {
 	
 	private void load(String string) throws IOException {
 		String s = "";
-		if(string.length() > 3) {
+		if(string.length() > 4) {
 			StringBuilder sb = new StringBuilder();
 			sb.append(string);
 			sb.delete(0, 5);
@@ -139,8 +143,12 @@ public class Shell {
 		}
 	}
 	
-	private void dram() {
+	private void pram() {
 		RAM.writeRAM();
+	}
+	
+	private void dfif() {
+		RAM.writeQueue();
 	}
 	
 	private void dreg() {

@@ -69,11 +69,12 @@ public class ProcessesManagement extends Process {
 		if(i != -1) {
 			Name = Name + id;
 		}
+		String s = Integer.toString(id);
 		process.CreateProcess(id,ProgramPath_Original, Name, processNumber);
 		processesList.add(process);
 		processNumber++;
 		
-		RAM.loadDataProcess(Name, ProgramPath_Original);
+		RAM.loadDataProcess(s, ProgramPath_Original);
 		CheckStates();
 	}
 	
@@ -281,7 +282,7 @@ public class ProcessesManagement extends Process {
 	}
 	
 	/**
-	 * @warning niebezpieczna. uzycie nazwy, ktora nie istnieje powoduje blad przekroczenia listy [-1]
+	 * @warning niebezpieczna. uzycie nazwy, ktora nie istnieje powoduje ArrayBoundOfException [-1]
 	 * @param name
 	 * @return process by ID.
 	 */
