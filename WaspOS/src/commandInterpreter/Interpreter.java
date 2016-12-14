@@ -152,6 +152,10 @@ public class Interpreter {
 		setValue("PCBbox.B", getValue("B"));
 		setValue("PCBbox.C", getValue("C"));
 		setValue("PCBbox.D", getValue("D"));
+		RUNNING.pcb.A=core.Processor.A; //TODO Bardzo but.
+		RUNNING.pcb.B=core.Processor.B; //i tu tez
+		RUNNING.pcb.C=core.Processor.C; //i tu
+		RUNNING.pcb.D=core.Processor.D; //i tu
 		setValue("PCBbox.commandCounter", commandCounter);
 		PCBbox.labels = labels;
 
