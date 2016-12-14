@@ -1,11 +1,13 @@
-XC procesTestowy
-XY procesTestowy
-XS procesTestowy,TestowanieDzialaniaKomunikatow
-XR
+MF procesTestowy
+XC procesTestowy,plikTestowy.txt
+XC procesHLT, plikDoUsuniecia.txt
+XY procesHLT
+XS procesTestowy,Komunikat1
 MN B,5
+XS procesTestowy,Komunikat2
 MV A,B
-PO A
-DF silniaPlik
+RFTODO A
+XY procesTestowy
 XZ procesTestowy
 XD procesTestowy
 HLT

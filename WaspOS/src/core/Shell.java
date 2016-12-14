@@ -34,7 +34,7 @@ public class Shell {
 		allowedCommands.put("help", "exactly what you are reading");
 		allowedCommands.put("cred", "\\m/");
 		allowedCommands.put("logo", "draw wasp");
-		allowedCommands.put("load", "load program");
+		allowedCommands.put("load", "load program"); // komenda specjalna, parametrowa.
 		allowedCommands.put("pram", "print content of ram");
 		allowedCommands.put("preg", "print all registers");
 		allowedCommands.put("plis", "print processes");
@@ -43,6 +43,8 @@ public class Shell {
 		allowedCommands.put("step", "do one step on processor");
 		allowedCommands.put("disc", "display disc");
 		allowedCommands.put("clog", "display communication logs");
+		allowedCommands.put("cpro", "create process");
+		allowedCommands.put("allp", "run through whole program");
 		
 		new Processor();
 		
@@ -59,18 +61,20 @@ public class Shell {
 		help();
 		
 		do {
-			System.out.println("Type command:");
+			System.out.print("Type command: ");
 			string = in.readLine().trim();
 			string = string.toLowerCase();
 			
-			if(!allowedCommands.containsKey(string)) {
+			if(!allowedCommands.containsKey(string) && !string.contains("load")) {
 				System.out.println("Undefined command!");
 			}
 			
-			switch(string) {
+			if(string.contains("load"))
+				load(string);
+			else switch(string) {
 			case "help": help(); break;
 			case "logo": drawLogo(); break;
-			case "load": load(); break;
+			case "load": load(string); break;
 			case "pram": dram(); break;
 			case "preg": dreg(); break;
 			case "plis": plis(); break;
@@ -78,19 +82,21 @@ public class Shell {
 			case "pnex": pnex(); break;
 			case "step": step(); break;
 			case "disc": disc(); break;
+			case "cpro": cpro(); break;
+			case "allp": allp(); break;
 			case "clog": System.out.println("communication logs: "); Communication.printLogs(); break;
 			}		
 		} while(!string.equals("exit"));
 		
 		in.close();
-		//TODO usuwanie wszystkiego.
 		processesManagement.CheckStates();
 	}
 	
 	private void help() {
 		System.out.println("All allowed commands:");
 		Object[] tab = allowedCommands.keySet().toArray();
-		for(int i = 0; i < allowedCommands.size(); i++) {
+		System.out.println(tab.length);
+		for(int i = 0; i < tab.length; i++) {
 			System.out.println("->" + tab[i] + " - " + allowedCommands.get(tab[i]));
 		}
 	}
@@ -104,9 +110,19 @@ public class Shell {
 		br.close();
 	}
 	
-	private void load() throws IOException {
-		System.out.println("Enter path of program.");
-		switch(in.readLine()) {
+	private void load(String string) throws IOException {
+		String s = "";
+		if(string.length() > 3) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(string);
+			sb.delete(0, 5);
+			s = sb.toString();	
+		} else {
+			System.out.println("Enter path of program.");
+			s = in.readLine();
+		}
+		
+		switch(s) {
 		case "program1.txt":
 			processesManagement.NewProcess_forUser("program1.txt", "program1");
 			break;
@@ -115,6 +131,7 @@ public class Shell {
 			break;
 		case "program3.txt":
 			processesManagement.NewProcess_forUser("program3.txt", "program3");
+			break;
 		case "komunikacja.txt":
 			processesManagement.NewProcess_forUser("komunikacja.txt", "komunikacja");
 			break;
@@ -154,9 +171,9 @@ public class Shell {
 	}
 	
 	private void step() throws IOException {
-		if(!processesManagement.processesList.isEmpty()){
-		processorManager.Scheduler();}
-		else{
+		if(!processesManagement.processesList.isEmpty()) {
+			processorManager.Scheduler();
+		} else {
 			System.out.println("No process exist.");
 		}
 	}
@@ -164,5 +181,15 @@ public class Shell {
 	private void disc() {
 		fileSystem.showDiskAndVector();
 		fileSystem.showMainCatalog();
+	}
+	
+	private void allp() throws IOException {
+		do {
+			step();
+		} while(ProcessorManager.RUNNING.GetID() != ProcessorManager.idleProcess.GetID());
+	}
+	
+	private void cpro() {
+		//TODO tworzenie procesu
 	}
 }

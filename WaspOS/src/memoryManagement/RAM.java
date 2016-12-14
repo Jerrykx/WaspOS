@@ -25,7 +25,6 @@ public class RAM {
 
 	// metoda dla interpretera, zwraca znak o ktory prosi interpreter
 	public char getCommand(int programCounter, String processName) {
-		System.out.println("programCounter: " + programCounter + "name: " + processName);
 		// szukany znak
 		char search;
 		// index tablicy stron szukanego procesu w kolekcji pagetables

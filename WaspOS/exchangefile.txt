@@ -1,0 +1,88 @@
+procesTestowy 0
+XR;XR;DF plikDoU
+procesTestowy 1
+suniecia;HLT;   
+program216 6
+ arytmetykaPlik,
+program216 7
+Wynik6*9=;WR ary
+program216 8
+tmetykaPlik,B;SB
+program216 9
+ B,A;WF arytmety
+program216 10
+kaPlik,Wynik54-9
+program216 11
+=;WR arytmetykaP
+program216 12
+lik,B;HLT;      
+program3 7
+y,Komunikat1;MN 
+program3 8
+B,5;XS procesTes
+program3 9
+towy,Komunikat2;
+program3 10
+MV A,B;RFTODO A;
+program3 11
+XY procesTestowy
+program3 12
+;XZ procesTestow
+program3 13
+y;XD procesTesto
+program3 14
+wy;HLT;         
+program2 12
+lik,B;HLT;      
+program19 12
+silniaPlik,!=;WR
+program19 13
+ silniaPlik,B;XZ
+program19 14
+ procesSilnia;XD
+program19 15
+ procesSilnia;HL
+program19 16
+T;              
+program19 0
+MF silniaPlik;XC
+program19 1
+ procesSilnia,si
+program19 2
+lniaPlik.txt;XN 
+program19 3
+procesSilnia;WF 
+program19 4
+silniaPlik,ID=;W
+program19 5
+R silniaPlik,A;W
+program19 0
+F silniaPlik,_;X
+program19 7
+Y procesSilnia;M
+program19 8
+N C,5;MN A,1;WR 
+program3 0
+MF procesTestowy
+program3 1
+;XC procesTestow
+program2 0
+MF arytmetykaPli
+program2 1
+k;MN A,3;MN B,6;
+program19 9
+silniaPlik,C;SIL
+program19 3
+NIA:;MV B,A;MU A
+program19 4
+,C;JM SILNIA;WF 
+program3 2
+y,plikTestowy.tx
+program3 3
+t;XC procesHLT, 
+program3 4
+plikDoUsuniecia.
+program3 5
+txt;XY procesHLT
+program3 6
+;XS procesTestow

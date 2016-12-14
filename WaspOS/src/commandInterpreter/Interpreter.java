@@ -1,15 +1,20 @@
 package commandInterpreter;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import fileSystem.FileSystem;
-import processesManagement.PCB;
-import processesManagement.ProcessesManagement;
-import processorManager.ProcessorManager;
-import processesManagement.Process;
 import memoryManagement.RAM;
 import processesCommunication.Communication;
+import processesManagement.PCB;
+import processesManagement.Process;
+import processesManagement.ProcessesManagement;
+import processorManager.ProcessorManager;
 
 public class Interpreter {
 	// ProcesMangment.RUNNING.SetPCB(pcbcos);
@@ -123,7 +128,6 @@ public class Interpreter {
 	}
 
 	public int RUN(Process RUNNING) {
-		ProcessorManager.RUNNING.printInformations();
 		// Put to Box a PCB from current Process
 		PCBbox = RUNNING.GetPCB();
 		// Set porgram variable
@@ -290,7 +294,6 @@ public class Interpreter {
 				//setValue("C", labels.get(param1));
 				setValue("C", getValue("C")-1);
 				commandCounter = labels.get(param1);
-				System.out.println(getValue("C"));
 			}
 			break;
 
@@ -299,8 +302,7 @@ public class Interpreter {
 			break;
 
 		case "XR": // czytanie komunikatu;
-			String s = Communication.read(ProcessorManager.RUNNING.GetName());
-			ProcessorManager.RUNNING.pcb.receivedMsg = s;
+			ProcessorManager.RUNNING.pcb.receivedMsg = Communication.read(ProcessorManager.RUNNING.GetName());
 			break;
 		case "XS": // -- Wysłanie komunikatu;
 			Communication.write(param1, param2);
@@ -308,16 +310,29 @@ public class Interpreter {
 		case "XN": // -- znalezienie PCB (param1);
 			//setValue("A", processesManagment.FindProcessWithName(param1));
 			core.Processor.A=processesManagment.GetIDwithName(param1);
-			System.out.println(param1 +  core.Processor.A);
 			break;
 
-		case "XC": // -- tworzenie procesu (param1);
+		case "XC": {// -- tworzenie procesu (param1);
+			File file = new File(param2);
+			if(!file.exists())  {
+				try {
+					FileWriter fw = new FileWriter(param2, true);
+					BufferedWriter out = new BufferedWriter(fw);
+					out.write("HLT");
+					out.close();
+					fw.close();
+				} catch(FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 			processesManagment.NewProcess_forUser(param2, param1);
 			processesManagment.getProcess(param1).SetState(3);
-			break;
+			break; }
 		case "XY": // -- Uruchomienie procesu
 			processesManagment.getProcess(param1).SetState(1);
-			processesManagment.getProcess(param1).SetCurrentPriority(1000);
+			processesManagment.getProcess(param1).SetCurrentPriority(ProcessorManager.MAX_PRIORITY+1);
 			break;
 		case "XD": // -- usuwanie procesu (param1);
 			processesManagment.getProcess(param1).SetState(4);
@@ -338,11 +353,13 @@ public class Interpreter {
 			fileSystem.appendToFile(param1, Integer.toString(getValue(param2)));
 			break;
 		case "DF": // -- Delete file
-			// deleteFile(paramI)
+			// deleteFile(paramI) //TODO
+			File file = new File(param1 + ".txt");
+			file.delete();
 			fileSystem.deleteFile(param1);
 			break;
-		case "PO": // -- Print Output
-			System.out.println(param1);
+		case "RF": // -- Print Output
+			//TODO
 			break;
 		}
 	}
@@ -357,24 +374,14 @@ public class Interpreter {
 				otherCounter++;
 				stan = 0;
 				found = false;
-				System.out.println("odczytalem: " + param1.toString());
-				System.out.println("odczytalem: " + command.toString());
-				System.out.println("odczytalem: " + param2.toString());
+				
+				System.out.println(command.toString() + " " + param1.toString() + " " + 
+				param1.toString() + " executor: " +ProcessorManager.RUNNING.GetName());
 				
 				boolean rozkazToEtykieta = isLabel(command);
 				boolean poprawnoscRejestru = rejestry.contains(param1.toString());
 				boolean poprawnoscRozkazu = rozkazy.contains(command.toString());
 				boolean argDrugiJestRejestrem = rejestry.contains(param2.toString());
-
-				// System.out.println("Rozkaz/Etykieta: " + command.toString() +
-				// " parametrI: " + param1.toString() + " parametrII: " +
-				// param2.toString());
-				// System.out.println("Poprawność rozkazu: " +
-				// command.toString() + " jest poprawny: " + poprawnoscRozkazu);
-				// System.out.println("Czy parametrI " + param1.toString() + "
-				// jest poprawny: " + poprawnoscRejestru);
-				// System.out.println("Czy parametrII " +param2.toString()+"
-				// jest rejestrem: " + argDrugiJestRejestrem + "\n");
 
 				if (rozkazToEtykieta) {
 					String temp = "";
@@ -385,21 +392,9 @@ public class Interpreter {
 							labels.put(temp, (otherCounter));
 						}
 					}
-
-					// System.out.println("Etykieta: "+ temp);
-					// System.out.println("Mapa: "+ labels);
-					// System.out.println("D: "+getValue("D"));
-
-				} else if (poprawnoscRozkazu || poprawnoscRejestru) {
 					
+				} else if (poprawnoscRozkazu) {
 					doCommand(command.toString(), param1.toString(), param2.toString(), argDrugiJestRejestrem, labels);
-					// System.out.println("A: "+core.Processor.A);
-					// System.out.println("B: "+core.Processor.B);
-					// System.out.println("C: "+core.Processor.C);
-					// System.out.println("D: "+core.Processor.D);
-				} else {
-					System.out.println("rozkaz: " + poprawnoscRozkazu + "rejestr " + poprawnoscRejestru + "etykieta " + rozkazToEtykieta);
-					System.out.println("nie i chuj");
 				}
 
 				command.delete(0, command.length());

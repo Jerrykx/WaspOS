@@ -142,19 +142,11 @@ public class ProcessesManagement extends Process {
 	//---
 	
 	public int FindProcessWithName(String name) {
-		
-		Process proces_kopia;
-		
 		for(int i = 0; i < processesList.size(); i++) {
-			
-			proces_kopia = processesList.get(i);
-			
-			if(proces_kopia.GetName().equals(name)) {
-				
+			if(processesList.get(i).GetName().equals(name)) {
 				return i;
 			}	
 		}
-		
 		return -1;
 	}
 	

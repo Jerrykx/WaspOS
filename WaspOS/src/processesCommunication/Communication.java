@@ -9,7 +9,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import processesManagement.ProcessesManagement;
 import syncMethod.Lock;
 
 public class Communication {	
