@@ -306,7 +306,9 @@ public class Interpreter {
 			// sendMsg(paramI, paramII);
 			break;
 		case "XN": // -- znalezienie PCB (param1);
-			setValue("A", processesManagment.FindProcessWithName(param1));
+			//setValue("A", processesManagment.FindProcessWithName(param1));
+			core.Processor.A=processesManagment.GetIDwithName(param1);
+			System.out.println(param1 +  core.Processor.A);
 			break;
 
 		case "XC": // -- tworzenie procesu (param1);

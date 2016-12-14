@@ -1,14 +1,19 @@
 MF silniaPlik
 XC procesSilnia,silniaPlik.txt
+XN procesSilnia
+WF silniaPlik,ID=
+WR silniaPlik,A
+WF silniaPlik,_
 XY procesSilnia
-MN C,3
+MN C,5
+MN A,1
+WR silniaPlik,C
 SILNIA:
+MV B,A
 MU A,C
 JM SILNIA
-WF silniaPlik,A
-WF silniaPlik,-ID^
-XN procesSilnia
-WR silniaPlik,A
+WF silniaPlik,!=
+WR silniaPlik,B
 XZ procesSilnia
 XD procesSilnia
 HLT
