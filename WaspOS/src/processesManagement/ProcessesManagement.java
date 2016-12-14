@@ -3,7 +3,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import memoryManagement.RAM;
-import processorManager.ProcessorManager;
 
 public class ProcessesManagement extends Process {
 
@@ -57,6 +56,8 @@ public class ProcessesManagement extends Process {
 		processNumber++;
 		
 		RAM.loadDataProcess(Name, Name);
+		CheckStates();
+		
 	}
 	
 	public void NewProcess_forUser(String ProgramPath_Original, String Name) {
@@ -72,6 +73,7 @@ public class ProcessesManagement extends Process {
 		processNumber++;
 		
 		RAM.loadDataProcess(Name, ProgramPath_Original);
+		CheckStates();
 	}
 	
 	public  Process NewProcess_EmptyProcess(String Name) {
@@ -79,7 +81,7 @@ public class ProcessesManagement extends Process {
 		process.CreateProcess(-1, Name, -1);
 		process.SetBasePriority(0);
 		process.SetCurrentPriority(0);
-		
+		CheckStates();
 		return process;
 	}
 	
@@ -278,7 +280,7 @@ public class ProcessesManagement extends Process {
 	public void printProcessInformations(int ID) {	
 		int index = FindProcessWithID(ID);
 		
-		if(index < 0 || index > processesList.size()-1)
+		if(index >= 0 && index <= processesList.size()-1)
 			processesList.get(index).printInformations();
 		else
 			System.out.println("This process does not exist");

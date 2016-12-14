@@ -115,7 +115,7 @@ public class Shell {
 	}
 	
 	private void dram() {
-		
+		RAM.writeRAM();
 	}
 	
 	private void dreg() {
@@ -146,38 +146,11 @@ public class Shell {
 	}
 	
 	private void step() throws IOException {
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
-		processorManager.Scheduler();
+		if(!processesManagment.processesList.isEmpty()){
+		processorManager.Scheduler();}
+		else{
+			System.out.println("No process exist.");
+		}
 	}
 	
 	private void disc() {
