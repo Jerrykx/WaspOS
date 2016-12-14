@@ -122,8 +122,8 @@ public class Interpreter {
 	}
 
 	public int RUN(Process RUNNING) {
-		if(ProcessorManager.RUNNING.GetState() == 4)
-			return -1; //TODO KURWAAAAA
+		//if(ProcessorManager.RUNNING.GetState() == 4)
+			//return -1; //TODO KURWAAAAA
 		ProcessorManager.RUNNING.printInformations();
 		// Put to Box a PCB from current Process
 		PCBbox = RUNNING.GetPCB();
