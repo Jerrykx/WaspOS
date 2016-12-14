@@ -232,7 +232,7 @@ public class Interpreter {
 		String program = "";
 
 		while (true) {
-			// Load char from RAM
+			// Load char from RAM 
 			znak = RAM.getCommand(commandCounter, procesName);
 			program += znak;
 			commandCounter++;
