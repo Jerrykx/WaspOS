@@ -298,7 +298,10 @@ public class Interpreter {
 			break;
 
 		case "XR": // czytanie komunikatu;
-			ProcessorManager.RUNNING.pcb.receivedMsg = Communication.read(ProcessorManager.RUNNING.GetName());
+			String received  = Communication.read(ProcessorManager.RUNNING.GetName());
+			ProcessorManager.RUNNING.pcb.receivedMsg = received;
+			fileSystem.createEmptyFile(ProcessorManager.RUNNING.GetName());
+			fileSystem.appendToFile(ProcessorManager.RUNNING.GetName(), received);
 			break;
 		case "XS": // -- Wysłanie komunikatu;
 			Communication.write(param1, param2);

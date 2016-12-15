@@ -1,6 +1,7 @@
 package core;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -93,9 +94,13 @@ public class Shell {
 			}
 		} while(!string.equals("exit"));
 		
+		File file = new File("komunikacja" + ".box");
+		file.delete();
+		
 		in.close();
 		processesManagement.CheckStates();
 	}
+	
 	
 	private void help() {
 		System.out.println("All allowed commands:");

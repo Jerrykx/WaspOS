@@ -25,11 +25,13 @@ public class Communication {
 	public Communication(ProcessesManagement processesManagement) {
 		Communication.processesManagement = processesManagement;
 		logs = "";
-		lock = new Lock("cos");
+		lock = new Lock("lock");
 	}
 	
-	public static void write(String processName, String msg) {
-		logs += " |Try write " + msg + " to " + processName;
+	public static void write(String receiverProcessName, String msg) {
+		logs += " |Try write " + msg + " to " + receiverProcessName;
+		lock.lock(processesManagement.getProcess(receiverProcessName));
+		System.out.println("Lock: " + lock.isState());
 		try {
 			FileWriter file = new FileWriter("komunikacja" + ".box", true);
 			BufferedWriter out = new BufferedWriter(file);
@@ -41,11 +43,13 @@ public class Communication {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		lock.lock(processesManagement.getProcess(processName));
+		lock.unlock(processesManagement.getProcess(receiverProcessName));
+		System.out.println("Lock: " + lock.isState());
 	}
 	
 	public static String read(String processName) {
-		lock.unlock(processesManagement.getProcess(processName));
+		lock.lock(processesManagement.getProcess(processName));
+		System.out.println("Lock: " + lock.isState());
 		logs += " |Try read from " + processName;
 		try {
 			File file = new File("komunikacja" + ".box");
@@ -61,7 +65,9 @@ public class Communication {
 			    for(int i = 1; i < arrayList.size(); i++)
 			    	pw.println(arrayList.get(i));
 			    pw.close();
-			    lock.lock(processesManagement.getProcess(processName));
+			    lock.unlock(processesManagement.getProcess(processName));
+			    System.out.println("Lock: " + lock.isState());
+			    
 			    if(arrayList.size() > 0) {
 			    	logs += " |read " + arrayList.get(0);
 			    	return arrayList.get(0);
@@ -74,16 +80,6 @@ public class Communication {
 			System.out.println(e.getMessage());
 		}
 		return "";
-	}
-	
-	public static void deleteProcessMsgBox(String processName) {
-		File file = new File(processName + ".box");
-	    
-		if(file.delete()) {
-			logs += (" |" + file.getName() + " deleted! ");
-		} else {
-			logs += (" |" + file.getName() + " delete failed! ");
-		}
 	}
 	
 	public static void printLogs() {
