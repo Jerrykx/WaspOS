@@ -9,25 +9,29 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import processesManagement.ProcessesManagement;
 import syncMethod.Lock;
 
 public class Communication {	
 	/**
 	 * nie wiem co z lockami :/
 	 */
-	private Lock lock1;
-	private Lock lock2;
-	
 	private static String logs;
 	
-	public Communication() {
+	static Lock lock;
+	
+	private static ProcessesManagement processesManagement;
+	
+	public Communication(ProcessesManagement processesManagement) {
+		Communication.processesManagement = processesManagement;
 		logs = "";
+		lock = new Lock("cos");
 	}
 	
 	public static void write(String processName, String msg) {
 		logs += " |Try write " + msg + " to " + processName;
 		try {
-			FileWriter file = new FileWriter(processName + ".box", true);
+			FileWriter file = new FileWriter("komunikacja" + ".box", true);
 			BufferedWriter out = new BufferedWriter(file);
 			out.write(msg + "\n");
 			out.close();
@@ -37,12 +41,14 @@ public class Communication {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		lock.lock(processesManagement.getProcess(processName));
 	}
 	
 	public static String read(String processName) {
+		lock.unlock(processesManagement.getProcess(processName));
 		logs += " |Try read from " + processName;
 		try {
-			File file = new File(processName + ".box");
+			File file = new File("komunikacja" + ".box");
 			if(file.exists()) {
 				Scanner sc = new Scanner(file);
 				ArrayList<String> arrayList = new ArrayList<String>();
@@ -51,10 +57,11 @@ public class Communication {
 					arrayList.add(sc.nextLine()); 
 				sc.close();
 				
-				PrintWriter pw = new PrintWriter(processName + ".box");
+				PrintWriter pw = new PrintWriter("komunikacja" + ".box");
 			    for(int i = 1; i < arrayList.size(); i++)
 			    	pw.println(arrayList.get(i));
 			    pw.close();
+			    lock.lock(processesManagement.getProcess(processName));
 			    if(arrayList.size() > 0) {
 			    	logs += " |read " + arrayList.get(0);
 			    	return arrayList.get(0);

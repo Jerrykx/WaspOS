@@ -2,6 +2,8 @@ package processesManagement;
 
 import java.util.HashMap;
 
+import syncMethod.Lock;
+
 public class PCB {
 	
 	protected int ProcessID;

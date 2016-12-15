@@ -155,10 +155,10 @@ public class Interpreter {
 		setValue("PCBbox.B", getValue("B"));
 		setValue("PCBbox.C", getValue("C"));
 		setValue("PCBbox.D", getValue("D"));
-		RUNNING.pcb.A=core.Processor.A; //TODO Bardzo but.
-		RUNNING.pcb.B=core.Processor.B; //i tu tez
-		RUNNING.pcb.C=core.Processor.C; //i tu
-		RUNNING.pcb.D=core.Processor.D; //i tu
+		RUNNING.pcb.A=core.Processor.A; 
+		RUNNING.pcb.B=core.Processor.B; 
+		RUNNING.pcb.C=core.Processor.C; 
+		RUNNING.pcb.D=core.Processor.D; 
 		setValue("PCBbox.commandCounter", commandCounter);
 		PCBbox.labels = labels;
 
@@ -176,11 +176,6 @@ public class Interpreter {
 			return core.Processor.C;
 		case "D":
 			return core.Processor.D;
-		// case "RUNNING.PCB.A": return RUNNING.PCB.A;
-		// case "RUNNING.PCB.B": return RUNNING.PCB.B;
-		// case "RUNNING.PCB.C": return RUNNING.PCB.C;
-		// case "RUNNING.PCB.D": return RUNNING.PCB.D;
-		// case "RUNNING.PCB.commandCounter": return RUNNING.PCB.commandCounter;
 		}
 		return 0;
 	}
@@ -212,7 +207,7 @@ public class Interpreter {
 			PCBbox.D = value;
 			break;
 		case "PCBbox.commandCounter":
-			PCBbox.commandCounter = commandCounter; //TODO !!! metoda buta w drzwiach, poprawiæ.
+			PCBbox.commandCounter = commandCounter;
 			break;
 		}
 		return 0;
@@ -344,7 +339,6 @@ public class Interpreter {
 			break;
 		case "XZ": // -- Zatrzymanie procesu
 			processesManagment.getProcess(param1).SetState(3);
-			// stopProces(param1);
 			break;
 
 		case "MF": // -- Create file
@@ -357,13 +351,9 @@ public class Interpreter {
 			fileSystem.appendToFile(param1, Integer.toString(getValue(param2)));
 			break;
 		case "DF": // -- Delete file
-			// deleteFile(paramI) //TODO
-			File file = new File(param1 + ".txt");
-			file.delete();
 			fileSystem.deleteFile(param1);
 			break;
 		case "RF": // -- Print Output
-			//TODO
 			System.out.println(fileSystem.getFileContent(param1));
 			break;
 		}

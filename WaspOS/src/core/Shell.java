@@ -52,13 +52,14 @@ public class Shell {
 		RAM = new RAM();
 		fileSystem = new FileSystem();
 		processesManagement = new ProcessesManagement(RAM);
-		communication = new Communication();
+		communication = new Communication(processesManagement);
 		interpreter = new Interpreter(RAM, fileSystem, processesManagement);
 		processorManager = new ProcessorManager(processesManagement, interpreter);
 		
 		in = new BufferedReader(new InputStreamReader(System.in));
 		
 		System.out.println("Welcome in WaspOS 2016");
+		drawLogo();
 		help();
 		
 		do {

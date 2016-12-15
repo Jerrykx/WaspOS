@@ -59,7 +59,7 @@ public class ProcessesManagement extends Process {
 		  processNumber++;
 		  
 		  RAM.loadDataProcess(s, ProgramPath_Original);
-		  //CheckStates();
+		  CheckStates();
 		 return 0;
 	}
 	
@@ -77,7 +77,7 @@ public class ProcessesManagement extends Process {
 		processNumber++;
 		
 		RAM.loadDataProcess(s, ProgramPath_Original);
-		//CheckStates();
+		CheckStates();
 	}
 	
 	public  Process NewProcess_EmptyProcess(String Name) {

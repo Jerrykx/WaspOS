@@ -127,7 +127,6 @@ public class ExchangeFile {
 			// szukamy zadana stronice
 			while (search.hasNextLine()) {
 				check = search.nextLine();
-				if (check.length() != 16) {
 					String divide[] = check.split(" ");
 					procName = divide[0];
 					pageNr = Integer.parseInt(divide[1]);
@@ -137,11 +136,9 @@ public class ExchangeFile {
 						rightScan = true;
 
 					} else { // jezeli to nie ta stronica, wpisujemy do pliku
-								// tymczasowego
-
-						writeToNewFile.println(procName + " " + pageNr);
-						writeToNewFile.println(search.nextLine());
-					}
+							// tymczasowego
+					writeToNewFile.println(procName + " " + pageNr);
+					writeToNewFile.println(search.nextLine());
 				}
 			}
 			search.close();
