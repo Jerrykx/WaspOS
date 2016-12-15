@@ -44,7 +44,7 @@ public class Shell {
 		allowedCommands.put("step", "do one step on processor");
 		allowedCommands.put("disc", "display disc");
 		allowedCommands.put("clog", "display communication logs");
-		allowedCommands.put("cpro", "create process");
+		allowedCommands.put("dpag", "display page table by ID");
 		allowedCommands.put("dfif", "display RAM fifo");
 		allowedCommands.put("allp", "run through whole program");
 		
@@ -86,7 +86,7 @@ public class Shell {
 				case "pnex": pnex(); break;
 				case "step": step(); break;
 				case "disc": disc(); break;
-				case "cpro": cpro(); break;
+				case "dpag": dpag(); break;
 				case "allp": allp(); break;
 				case "dfif": dfif(); break;
 				case "clog": System.out.println("communication logs: "); Communication.printLogs(); break;
@@ -203,7 +203,18 @@ public class Shell {
 		} while(ProcessorManager.RUNNING.GetID() != ProcessorManager.idleProcess.GetID());
 	}
 	
-	private void cpro() {
-		//TODO tworzenie procesu
+	private void dpag() throws IOException {
+		System.out.println("Type ID of page table to print. \"all\" to print all existing processes");
+		String s = in.readLine().trim();
+		
+		if(s.contains("all")) {
+			RAM.writeProcessesNamesInRam();
+			return;
+		}
+		
+		for(int i = 0; i < RAM.pageTables.size(); i++) {
+			if(RAM.pageTables.get(i).processName.equals(s))
+				RAM.pageTables.get(i).writePageTable();
+		}
 	}
 }

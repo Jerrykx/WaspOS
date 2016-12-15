@@ -6,7 +6,7 @@ public class PageTable {
 	// czy jest w ramie
 	public boolean inRAM[];
 	// nr procesu ktory jest w ramie
-	String processName;
+	public String processName;
 
 	// konstruktor tworzacy dla procesu tablice stron
 	public PageTable(int processDataSize, String procName) {

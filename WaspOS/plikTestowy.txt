@@ -1,4 +1,4 @@
-XR
-XR
-DF plikDoUsuniecia
+XR 
+XR 
+DF plikDoUsuniecia 
 HLT

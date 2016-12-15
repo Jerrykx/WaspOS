@@ -10,5 +10,4 @@ WR arytmetykaPlik,B
 SB B,A
 WF arytmetykaPlik,Wynik54-9=
 WR arytmetykaPlik,B
-RF arytmetykaPlik
 HLT

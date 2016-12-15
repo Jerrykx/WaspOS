@@ -4,14 +4,14 @@ XN procesSilnia
 WF silniaPlik,ID=
 WR silniaPlik,A
 WF silniaPlik,_
-XY procesSilnia
-MN C,5
+XY procesSilnia 
 MN A,1
+MN C,5
 WR silniaPlik,C
 SILNIA:
 MV B,A
 MU A,C
-JM SILNIA
+JM SILNIA 
 WF silniaPlik,!=
 WR silniaPlik,B
 XZ procesSilnia

@@ -1,13 +1,14 @@
-MF procesTestowy
-XC procesTestowy,plikTestowy.txt
-XC procesHLT, plikDoUsuniecia.txt
-XY procesHLT
-XS procesTestowy,Komunikat1
-MN B,5
-XS procesTestowy,Komunikat2
-MV A,B
-RFTODO A
-XY procesTestowy
-XZ procesTestowy
-XD procesTestowy
+MF procesTestowy 
+XC procesTestowy,plikTestowy.txt 
+MF plikDoUsuniecia 
+XC procesHLT,plikDoUsuniecia.txt 
+XY procesHLT 
+XS procesTestowy,Komunikat1 
+MN B,5 
+XS procesTestowy,Komunikat2 
+MV A,B 
+PO A 
+XY procesTestowy 
+XZ procesTestowy 
+XD procesTestowy 
 HLT
